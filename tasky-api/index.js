@@ -12,4 +12,3 @@ app.use(express.static('public'));
 app.listen(port, () => {
   console.info(`Server running at ${port}`);
 });
-
