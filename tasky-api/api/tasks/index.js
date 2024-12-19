@@ -34,4 +34,31 @@ router.post('/', (req, res) => {
     tasksData.total_results++;
 });
 
+//Update an existing task
+router.put('/:id', (req, res) => {
+    const { id } = req.params;
+    const taskIndex = tasksData.tasks.findIndex(task => task.id === id); 
+    if (taskIndex === -1) {
+        return res.status(404).json({ status: 404, message: 'Task not found' });
+    }
+    const updatedTask = { ...tasksData.tasks[taskIndex], ...req.body, id:id };
+    tasksData.tasks[taskIndex] = updatedTask;
+    res.json(updatedTask);
+});
+
+//Delete a task
+router.delete('/:id', (req, res) => {
+    console.log("DELETE request triggered");
+    const { id } = req.params;
+    const taskIndex = tasksData.tasks.findIndex(task => task.id === id);
+    
+    if (taskIndex === -1) return res.status(404).json({status:404,message:'Task not found'});
+    tasksData.tasks.splice(taskIndex, 1);
+    
+    tasksData.total_results--;
+
+    console.log('After delete:', tasksData.tasks);
+    res.status(204).send();
+});
+
 export default router;
