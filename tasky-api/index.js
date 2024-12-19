@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import express from 'express';
-import tasksRouter from './api/tasks';
+import tasksRouter from './api/tasks/index.js';
 
 dotenv.config();
 
